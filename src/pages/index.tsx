@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next';
 import Prismic from '@prismicio/client';
+import { RichText } from 'prismic-dom';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
@@ -32,20 +33,33 @@ export default function Home() {
   );
 }
 
-export const getStaticProps:GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
-  const postsResponse = await prismic.query<any>(
+  const postsResponse = await prismic.query(
     [Prismic.predicates.at('document.type', 'post')],
     {
       fetch: ['title', 'content'],
       pageSize: 20,
     }
   );
-  console.log(postsResponse);
+
+  const posts = postsResponse.results.map(post => {
+    return {
+      uid: post.uid,
+      first_publication_date: new Date(
+        post.first_publication_date
+      ).toLocaleDateString('pt-BR'),
+      data: {
+        title: RichText.asText(post.data.title),
+        subtitle: RichText.asText(post.data.subtitle),
+        author: RichText.asText(post.data.author),
+      },
+    };
+  });
 
   return {
     props: {
-      postsResponse,
+      posts,
     },
     revalidate: 60 * 60 * 24, // 24 hrs
   };
