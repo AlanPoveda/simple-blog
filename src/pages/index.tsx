@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-
+import Prismic from '@prismicio/client';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
@@ -32,9 +32,21 @@ export default function Home() {
   );
 }
 
-// export const getStaticProps = async () => {
-//   // const prismic = getPrismicClient();
-//   // const postsResponse = await prismic.query(TODO);
+export const getStaticProps:GetStaticProps = async () => {
+  const prismic = getPrismicClient();
+  const postsResponse = await prismic.query<any>(
+    [Prismic.predicates.at('document.type', 'post')],
+    {
+      fetch: ['title', 'content'],
+      pageSize: 20,
+    }
+  );
+  console.log(postsResponse);
 
-//   // TODO
-// };
+  return {
+    props: {
+      postsResponse,
+    },
+    revalidate: 60 * 60 * 24, // 24 hrs
+  };
+};
