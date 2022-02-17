@@ -30,6 +30,12 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <Header />
+      <div>
+        <h1>title</h1>
+        <p>subtitle</p>
+        <time>Pulication time</time> <span>Alan Poveda</span>
+        <p style={{"color": "#FF57B2"}}>Carregar mais post</p>
+      </div>
     </div>
   );
 }
@@ -44,10 +50,17 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  const posts = {
-    title: 'hello',
-  };
+  const posts = postsResponse.results.map(post => ({
+    uid: post.uid,
+    first_publication_date: post.first_publication_date,
+    data: {
+      title: post.data.title,
+      subtitle: post.data.subtitle,
+      author: post.data.author,
+    },
+  }));
 
+  console.log(posts);
   return {
     props: {
       posts,

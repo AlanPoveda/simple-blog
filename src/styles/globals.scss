@@ -11,3 +11,13 @@
   --info: #BBBBBB;
   --body: #D7D7D7; 
 }
+
+
+body {
+  background:var(--background);
+  color: var(--info);
+}
+
+body, input, textarea, select, button {
+  font: 400 1rem "Inter", sans-serif;
+}

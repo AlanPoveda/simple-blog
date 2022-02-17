@@ -2,7 +2,7 @@ export default function Header() {
   return (
     <>
     
-    <h1>spacetraveling</h1>
+    <h2>spacetraveling</h2>
     </>
   )
 }
