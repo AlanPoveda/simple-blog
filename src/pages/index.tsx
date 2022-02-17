@@ -5,6 +5,7 @@ import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import Header from '../components/Header';
 
 interface Post {
   uid?: string;
@@ -27,9 +28,9 @@ interface HomeProps {
 
 export default function Home() {
   return (
-    <>
-      <h1>My blog</h1>
-    </>
+    <div className={styles.home}>
+      <Header />
+    </div>
   );
 }
 
@@ -43,19 +44,9 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  const posts = postsResponse.results.map(post => {
-    return {
-      uid: post.uid,
-      first_publication_date: new Date(
-        post.first_publication_date
-      ).toLocaleDateString('pt-BR'),
-      data: {
-        title: RichText.asText(post.data.title),
-        subtitle: RichText.asText(post.data.subtitle),
-        author: RichText.asText(post.data.author),
-      },
-    };
-  });
+  const posts = {
+    title: 'hello',
+  };
 
   return {
     props: {

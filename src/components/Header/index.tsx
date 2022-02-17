@@ -1,3 +1,8 @@
 export default function Header() {
-  // TODO
+  return (
+    <>
+    
+    <h1>spacetraveling</h1>
+    </>
+  )
 }
