@@ -1,7 +1,11 @@
 .header {
     display: flex;
 
-    padding: 2rem 0 2rem 30%;
+    padding: 4rem 0 4rem 24%;
 
     color: var(--heading);
+
+    span {
+        color: var(--higlight);
+    }
 }

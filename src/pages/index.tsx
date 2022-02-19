@@ -28,14 +28,31 @@ interface HomeProps {
 
 export default function Home() {
   return (
-    <div className={styles.home}>
-      <div>
+    <>
+      <div className={styles.home}>
         <h1>title</h1>
         <p>subtitle</p>
-        <time>Pulication time</time> <span>Alan Poveda</span>
-        <p style={{"color": "#FF57B2"}}>Carregar mais post</p>
+        <div className={styles.timeAndAuthor}>
+          <time>Pulication time</time> <span>Alan Poveda</span>
+        </div>
+
+        <h1>title</h1>
+        <p>subtitle</p>
+        <div className={styles.timeAndAuthor}>
+          <time>Pulication time</time> <span>Alan Poveda</span>
+        </div>
+
+        <h1>title</h1>
+        <p>subtitle</p>
+        <div className={styles.timeAndAuthor}>
+          <time>Pulication time</time> <span>Alan Poveda</span>
+        </div>
+
+        <p>
+          <span>Carregar mais post</span>
+        </p>
       </div>
-    </div>
+    </>
   );
 }
 
