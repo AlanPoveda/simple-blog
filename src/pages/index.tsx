@@ -29,7 +29,6 @@ interface HomeProps {
 export default function Home() {
   return (
     <div className={styles.home}>
-      <Header />
       <div>
         <h1>title</h1>
         <p>subtitle</p>

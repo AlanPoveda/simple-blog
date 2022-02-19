@@ -1,8 +1,8 @@
+import styled from './header.module.scss';
 export default function Header() {
   return (
-    <>
-    
-    <h2>spacetraveling</h2>
-    </>
-  )
+    <div className={styled.header}>
+      <h2>spacetraveling<span style={{"color": "#FF57B2"}}>.</span></h2>
+    </div>
+  );
 }
