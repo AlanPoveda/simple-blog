@@ -1,6 +1,6 @@
 import styled from './header.module.scss';
 
-export default function Header() {
+export default function Header(): any {
   return (
     <div className={styled.header}>
       <h2>

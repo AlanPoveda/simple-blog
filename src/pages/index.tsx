@@ -26,32 +26,23 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home() {
+export default function Home(props): any {
+  const { results }: Post = props;
   return (
     <>
-      <div className={styles.home}>
-        <h1>title</h1>
-        <p>subtitle</p>
-        <div className={styles.timeAndAuthor}>
-          <time>Pulication time</time> <span>Alan Poveda</span>
+      {results.map(post => (
+        <div className={styles.home}>
+          <h1>{post.data.title}</h1>
+          <p>{post.data.subtitle}</p>
+          <div className={styles.timeAndAuthor}>
+            <time>{post.first_publication_date}</time>{' '}
+            <span>{post.data.author}</span>
+          </div>
+          <p>
+            <span>Carregar mais post</span>
+          </p>
         </div>
-
-        <h1>title</h1>
-        <p>subtitle</p>
-        <div className={styles.timeAndAuthor}>
-          <time>Pulication time</time> <span>Alan Poveda</span>
-        </div>
-
-        <h1>title</h1>
-        <p>subtitle</p>
-        <div className={styles.timeAndAuthor}>
-          <time>Pulication time</time> <span>Alan Poveda</span>
-        </div>
-
-        <p>
-          <span>Carregar mais post</span>
-        </p>
-      </div>
+      ))}
     </>
   );
 }
@@ -76,10 +67,12 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   }));
 
-  console.log(posts);
+  console.log(postsResponse);
+
   return {
     props: {
-      posts,
+      results: posts,
+      next_page: '10',
     },
     revalidate: 60 * 60 * 24, // 24 hrs
   };
