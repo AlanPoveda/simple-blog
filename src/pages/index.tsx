@@ -27,22 +27,26 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps): JSX.Element {
-  const { results, next_page } = postsPagination;
+  const { results } = postsPagination;
+
   return (
     <>
       {results.map(post => (
-        <div className={styles.home}>
+        <div className={styles.home} key={post.uid}>
           <h1>{post.data.title}</h1>
           <p>{post.data.subtitle}</p>
           <div className={styles.timeAndAuthor}>
             <time>{post.first_publication_date}</time>{' '}
             <span>{post.data.author}</span>
           </div>
-          <p>
-            <span>Carregar mais post</span>
-          </p>
         </div>
       ))}
+      <div className={styles.home}>
+        {' '}
+        <p>
+          <span>Carregar mais post</span>
+        </p>
+      </div>
     </>
   );
 }
@@ -67,10 +71,14 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   }));
 
+  const postsPagination = {
+    next_page: '10',
+    results: posts,
+  };
+
   return {
     props: {
-      results: posts,
-      next_page: '10',
+      postsPagination,
     },
     revalidate: 60 * 60 * 24, // 24 hrs
   };
