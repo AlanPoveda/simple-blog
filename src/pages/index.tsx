@@ -26,8 +26,8 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home(props): any {
-  const { results }: Post = props;
+export default function Home({ postsPagination }: HomeProps): JSX.Element {
+  const { results, next_page } = postsPagination;
   return (
     <>
       {results.map(post => (
@@ -66,8 +66,6 @@ export const getStaticProps: GetStaticProps = async () => {
       author: post.data.author,
     },
   }));
-
-  console.log(postsResponse);
 
   return {
     props: {
