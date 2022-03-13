@@ -28,14 +28,20 @@ interface PostProps {
 
 export default function Post(): JSX.Element {
   return (
-    <>
-      <h1>image</h1>
+    <div className={styles.content}>
+      <image href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpixy.org%2Fsrc%2F21%2F219269.jpg&f=1&nofb=1">
+        image
+      </image>
       <h1>title</h1>
-      <time>12/02/2021</time><span>Alan Poveda</span><span>4 min</span>
+      <div className={styles.contentInformation}>
+        <time>12/02/2021</time>
+        <span>Alan Poveda</span>
+        <span>4 min</span>
+      </div>
+
       <h2>SubTitel</h2>
-      <p>loren alsdkjfalsd alskdjflasdk alsdj flajsdlf ajslk
-      </p>
-    </>
+      <p>loren alsdkjfalsd alskdjflasdk alsdj flajsdlf ajslk</p>
+    </div>
   );
 }
 
