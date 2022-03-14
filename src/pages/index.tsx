@@ -4,6 +4,8 @@ import ptBR from 'date-fns/locale/pt-BR';
 import Link from 'next/link';
 import Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
+import { AiOutlineUser } from 'react-icons/ai';
+import { BsCalendar } from 'react-icons/bs';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
@@ -41,7 +43,9 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
               <h1> {post.data.title}</h1>
               <p>{post.data.subtitle}</p>
               <div className={styles.timeAndAuthor}>
+                <BsCalendar className={styles.icon} />
                 <time>{post.first_publication_date}</time>{' '}
+                <AiOutlineUser className={styles.icon} />
                 <span>{post.data.author}</span>
               </div>
             </a>
@@ -72,7 +76,7 @@ export const getStaticProps: GetStaticProps = async () => {
     uid: post.uid,
     first_publication_date: format(
       new Date(post.first_publication_date),
-      'dd MMM yyyy',
+      'dd LLL yyyy',
       {
         locale: ptBR,
       }
