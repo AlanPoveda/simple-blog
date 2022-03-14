@@ -1,9 +1,13 @@
 // TODO
 .content {
     margin-left: 20%;
+    max-width: 80%;
     image {
         width: 100%;
         height: 400px;
+    }
+    a {
+        color: var(--higlight);
     }
     h1 {
         font-size: 3rem;

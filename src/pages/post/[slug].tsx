@@ -41,20 +41,23 @@ export default function Post(): JSX.Element {
 
       <h2>SubTitel</h2>
       <p>loren alsdkjfalsd alskdjflasdk alsdj flajsdlf ajslk</p>
+      <a>Testing</a>
     </div>
   );
 }
 
-// export const getStaticPaths = async () => {
-//   const prismic = getPrismicClient();
-//   const posts = await prismic.query(TODO);
+ //export const getStaticPaths = async () => {
+ // const prismic = getPrismicClient();
+ // const posts = await prismic.query();
 
-//   // TODO
+  // TODO
 // };
 
-// export const getStaticProps = async context => {
-//   const prismic = getPrismicClient();
-//   const response = await prismic.getByUID(TODO);
 
-//   // TODO
-// };
+ //export const getStaticProps = async context => {
+   //const prismic = getPrismicClient();
+
+   //const response = await prismic.getByUID();
+
+   // TODO
+//};

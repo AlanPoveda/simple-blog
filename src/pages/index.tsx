@@ -1,4 +1,7 @@
 import { GetStaticProps } from 'next';
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+import Link from 'next/link';
 import Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
 import { getPrismicClient } from '../services/prismic';
@@ -33,12 +36,16 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
     <>
       {results.map(post => (
         <div className={styles.home} key={post.uid}>
-          <h1>{post.data.title}</h1>
-          <p>{post.data.subtitle}</p>
-          <div className={styles.timeAndAuthor}>
-            <time>{post.first_publication_date}</time>{' '}
-            <span>{post.data.author}</span>
-          </div>
+          <Link href={`/post/${post.uid}`}>
+            <a href={`/post/${post.uid}`}>
+              <h1> {post.data.title}</h1>
+              <p>{post.data.subtitle}</p>
+              <div className={styles.timeAndAuthor}>
+                <time>{post.first_publication_date}</time>{' '}
+                <span>{post.data.author}</span>
+              </div>
+            </a>
+          </Link>
         </div>
       ))}
       <div className={styles.home}>
@@ -63,7 +70,13 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const posts = postsResponse.results.map(post => ({
     uid: post.uid,
-    first_publication_date: post.first_publication_date,
+    first_publication_date: format(
+      new Date(post.first_publication_date),
+      'dd MMM yyyy',
+      {
+        locale: ptBR,
+      }
+    ),
     data: {
       title: post.data.title,
       subtitle: post.data.subtitle,

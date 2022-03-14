@@ -1,30 +1,44 @@
 // TODO
 .home {
-    background: var(--background);
-    color: var(--body);
-    margin-left: 24%;
-    
+  background: var(--background);
+  color: var(--body);
+  margin-left: 24%;
+  a {
+    text-decoration: none;
+
     h1 {
-        color: var(--heading);
-        padding: 0 0 0.5rem 0;
+      color: var(--heading);
+      padding: 0 0 0.5rem 0;
+   
     }
 
     h2 {
-        color: var(--heading);
+      color: var(--heading);
+
     }
 
     p {
-        padding: 0 0 1.5rem 0;
-
-        span {
-            color: var(--higlight);
-        }
+        color: var(--info);
+    }
+    time {
+        color: var(--info);
+    }
+    span {
+        color: var(--info);
     }
 
-    
+  }
+  p {
+    padding: 0 0 1.5rem 0;
+   
+
+    span {
+      color: var(--higlight);
+    }
+  }
 }
 
 .timeAndAuthor {
-    padding: 0 0 3rem 0;
-    font-size: 0.7rem;
+  padding: 0 0 3rem 0;
+  font-size: 0.7rem;
 }
