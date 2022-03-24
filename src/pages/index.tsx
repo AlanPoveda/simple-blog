@@ -6,6 +6,7 @@ import Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import { BsCalendar } from 'react-icons/bs';
+import { useState } from 'react';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
@@ -29,14 +30,43 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
+  preview: boolean;
 }
 
-export default function Home({ postsPagination }: HomeProps): JSX.Element {
-  const { results } = postsPagination;
+export default function Home({
+  postsPagination,
+  preview,
+}: HomeProps): JSX.Element {
+  const { results, next_page } = postsPagination;
+  const [nextPage, setNextPage] = useState<string>(postsPagination.next_page);
+  const [posts, setPosts] = useState<Post[]>(postsPagination.results);
+
+  async function handleLoadMorePosts(): Promise<void> {
+    const newPostsPagination = await fetch(nextPage).then(response =>
+      response.json()
+    );
+
+    setNextPage(newPostsPagination.next_page);
+
+    const newFormattedPosts = newPostsPagination.results.map(post => {
+      return {
+        ...post,
+        first_publication_date: format(
+          new Date(post.first_publication_date),
+          'dd LLL yyyy',
+          {
+            locale: ptBR,
+          }
+        ),
+      };
+    });
+
+    setPosts([...posts, ...newFormattedPosts]);
+  }
 
   return (
     <>
-      {results.map(post => (
+      {posts.map(post => (
         <div className={styles.home} key={post.uid}>
           <Link href={`/post/${post.uid}`}>
             <a href={`/post/${post.uid}`}>
@@ -53,10 +83,11 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
         </div>
       ))}
       <div className={styles.home}>
-        {' '}
-        <p>
-          <span>Carregar mais post</span>
-        </p>
+        {nextPage && (
+          <button type="button" onClick={handleLoadMorePosts}>
+            <span>Carregar mais posts</span>
+          </button>
+        )}
       </div>
     </>
   );
@@ -67,8 +98,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const postsResponse = await prismic.query(
     [Prismic.predicates.at('document.type', 'post')],
     {
-      fetch: ['title', 'content'],
-      pageSize: 20,
+      pageSize: 1,
     }
   );
 
@@ -89,7 +119,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }));
 
   const postsPagination = {
-    next_page: '10',
+    next_page: postsResponse.next_page,
     results: posts,
   };
 

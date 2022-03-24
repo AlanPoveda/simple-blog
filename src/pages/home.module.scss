@@ -19,6 +19,7 @@
 
     p {
         color: var(--info);
+        padding-bottom: 11px;
     }
     time {
       padding-left: 0.5rem;
@@ -27,14 +28,13 @@
     }
     span {
       padding-left: 0.5rem;
-        color: var(--info);
+      color: var(--info);
     }
 
   }
-  p {
-    padding: 0 0 1.5rem 0;
-   
-
+  button {
+    background: none;
+  
     span {
       color: var(--higlight);
     }
